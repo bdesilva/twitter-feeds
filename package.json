@@ -9,7 +9,8 @@
     "morgan": "~1.2.2",
     "body-parser": "~1.5.2",
     "method-override": "~2.1.2",
-    "bower": "~1.5.3"
+    "bower": "~1.5.3",
+    "oauth": "~0.9.14"
   },
   "devDependencies": {
     "gulp": "^3.9.0"
