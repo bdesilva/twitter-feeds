@@ -2,5 +2,7 @@
 
 module.exports = function(app) {
     var systemController = require('../controllers/system_controller');
-    app.get('/', systemController.init);
+
+    //Routes
+    app.get('/system', systemController.init);
 };

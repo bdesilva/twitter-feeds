@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 
-module.exports = function() {
+module.exports = function(config) {
     //Server config.
     var app = express();
 
