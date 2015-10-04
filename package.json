@@ -10,7 +10,10 @@
     "body-parser": "~1.5.2",
     "method-override": "~2.1.2",
     "bower": "~1.5.3",
-    "oauth": "~0.9.14"
+    "oauth": "~0.9.14",
+    "underscore": "~1.8.3",
+    "q": "~1.4.1",
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "gulp": "^3.9.0"
