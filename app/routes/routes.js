@@ -7,7 +7,7 @@ module.exports = function(app, config) {
     //Routes
     app.get('/', systemController.init);
     app.get('/feeds', function(req, res) {
-      res.locals.config = config;      
+      res.locals.config = config;
       feedController.init(req, res);
     });
 };
