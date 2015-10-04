@@ -13,7 +13,8 @@ var getFeeds = function(req, res, validator, feeds) {
         console.error(error)
       };
       var tweets = feeds.formatFeeds(JSON.parse(data));
-      res.json(tweets);
+      var groups = feeds.filterTweetsByAccount(tweets);
+      res.json(groups);
     });
 };
 

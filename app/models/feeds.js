@@ -29,6 +29,7 @@ exports.formatFeeds = function(tweets) {
 
     _.map(filtered, function(tw) {
       formattedTweets.push({
+        twitter_id: tw.entities.user_mentions[0].id,
         twitter_account: tw.entities.user_mentions[0].screen_name,
         tweet: tw.text,
         tweeted_on: moment(new Date(tw.created_at)).valueOf()
@@ -41,6 +42,16 @@ exports.formatFeeds = function(tweets) {
   _.mapObject(formattedTweets, function(val, key) {
     return val.tweeted_on = moment(new Date(val.tweeted_on)).fromNow();
   });
-  
+
   return formattedTweets;
+};
+
+exports.filterTweetsByAccount = function(tweets) {
+  return _.countBy(tweets, function(tweet) {
+    return tweet.twitter_account;
+  });
+};
+
+exports.foreignUserCount = function(tweets) {
+
 };
