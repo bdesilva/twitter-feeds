@@ -1,6 +1,13 @@
 'use strict;'
 
 var _ = require('underscore');
+var moment = require('moment');
+
+function sortByMilliseconds(tw_a, tw_b) {
+  if (tw_a.tweeted_on < tw_b.tweeted_on) return 1;
+  if (tw_a.tweeted_on > tw_b.tweeted_on) return -1;
+  return 0;
+}
 
 exports.formatFeeds = function(tweets) {
   var formattedTweets = [];
@@ -8,23 +15,32 @@ exports.formatFeeds = function(tweets) {
   _.each(tweets, function(tweet) {
     _.flatten(tweet);
 
+    // var filtered = _.filter(tweet, function(match) {
+    //   if (match.entities && match.entities.user_mentions && match.entities.user_mentions.length > 0) {
+    //     return _.every(match.entities.user_mentions, function(user) {
+    //       return user.screen_name === 'pay_by_phone' || user.screen_name === 'PayByPhone' || user.screen_name === 'PayByPhone_UK';
+    //     });
+    //   }
+    // });
+
     var filtered = _.filter(tweet, function(match) {
-      if (match.entities && match.entities.user_mentions && match.entities.user_mentions.length > 0) {
-        return _.every(match.entities.user_mentions, function(user) {
-          return user.screen_name === 'pay_by_phone' || user.screen_name === 'PayByPhone' || user.screen_name === 'PayByPhone_UK';
-        });
-      }
+      return match.entities && match.entities.user_mentions && match.entities.user_mentions.length > 0;
     });
 
     _.map(filtered, function(tw) {
       formattedTweets.push({
         twitter_account: tw.entities.user_mentions[0].screen_name,
         tweet: tw.text,
-        tweeted_on: tw.created_at
+        tweeted_on: moment(new Date(tw.created_at)).valueOf()
       });
     });
   });
 
-  //console.log('Formatted Tweets: ' + JSON.stringify(formattedTweets));
+  formattedTweets.sort(sortByMilliseconds);
+
+  _.mapObject(formattedTweets, function(val, key) {
+    return val.tweeted_on = moment(new Date(val.tweeted_on)).fromNow();
+  });
+  
   return formattedTweets;
 };
