@@ -14,7 +14,8 @@ var getFeeds = function(req, res, validator, feeds) {
       };
       var tweets = feeds.formatFeeds(JSON.parse(data));
       var groups = feeds.filterTweetsByAccount(tweets);
-      res.json(groups);
+      var mentions = feeds.foreignUserCount(tweets);
+      res.json(mentions);
     });
 };
 

@@ -7,21 +7,23 @@ function sortByMilliseconds(tw_a, tw_b) {
   if (tw_a.tweeted_on < tw_b.tweeted_on) return 1;
   if (tw_a.tweeted_on > tw_b.tweeted_on) return -1;
   return 0;
-}
+};
+
+function distinguishMentions(tweets, Key) {
+  _.flatten(tweets);
+  var counter = 0;
+
+  _.each(tweets, function(tweet) {
+    counter += tweet.match(/@\w+/g).length;
+  });
+  return counter;
+};
 
 exports.formatFeeds = function(tweets) {
   var formattedTweets = [];
 
   _.each(tweets, function(tweet) {
     _.flatten(tweet);
-
-    // var filtered = _.filter(tweet, function(match) {
-    //   if (match.entities && match.entities.user_mentions && match.entities.user_mentions.length > 0) {
-    //     return _.every(match.entities.user_mentions, function(user) {
-    //       return user.screen_name === 'pay_by_phone' || user.screen_name === 'PayByPhone' || user.screen_name === 'PayByPhone_UK';
-    //     });
-    //   }
-    // });
 
     var filtered = _.filter(tweet, function(match) {
       return match.entities && match.entities.user_mentions && match.entities.user_mentions.length > 0;
@@ -53,5 +55,13 @@ exports.filterTweetsByAccount = function(tweets) {
 };
 
 exports.foreignUserCount = function(tweets) {
-
+  return result = _.chain(tweets)
+    .groupBy('twitter_account')
+    .map(function(value, key) {
+      return {
+        twitter_account: key,
+        mentions: distinguishMentions(_.pluck(value, 'tweet'), key)
+      }
+    })
+    .value();
 };

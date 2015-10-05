@@ -4,7 +4,13 @@
 var env = process.env.NODE_ENV || 'development',
   config = require('./config/env/' + env + '-env'),
   express = require('./config/express_config'),
-  app = express(config);
+  redis = require('./config/redis_config')(config),
+  app = express(config, redis);
+
+//Redis startup
+redis.on('connect', function() {
+    console.log('Redis client connected on ' + config.redis.host + ':' + config.redis.port);
+});
 
 // Web server startup
 app.listen(config.web.port);

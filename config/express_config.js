@@ -6,7 +6,7 @@ var express = require('express'),
   methodOverride = require('method-override');
 
 
-module.exports = function(config) {
+module.exports = function(config, redis) {
   //Server config.
   var app = express();
 
@@ -21,7 +21,7 @@ module.exports = function(config) {
   }));
   app.use(methodOverride());
 
-  require('../app/routes/routes.js')(app, config);
+  require('../app/routes/routes.js')(app, config, redis);
 
   return app;
 };
