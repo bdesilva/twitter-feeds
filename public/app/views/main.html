@@ -1,1 +1,12 @@
-<h1>It works!</h1>
+<div class="panel-body">
+  <h4 class="work-type-header">Twitter Feeds for @pay_by_phone, @PayByPhone, @PayByPhone_UK</h4>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="tweet in tweets track by $index">
+      <a class="list-group-item" href="">
+        <h4 class="list-group-item-heading">{{tweet.twitter_account}} - {{tweet.tweeted_on_relative}}</h4>
+        <p class="list-group-item-text">{{tweet.tweet}}</p>
+        <p class="list-group-item-text">{{tweet.tweeted_on}}</p>
+      </a>
+    </li>
+  </ul>
+</div>

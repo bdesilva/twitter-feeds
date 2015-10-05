@@ -1,0 +1,13 @@
+<h3>Mentioned in tweets per account</h3>
+<c3chart bindto-id="chart" chart-data="datapoints" chart-columns="datacolumns">
+</c3chart>
+<br/>
+<div class="panel-body">
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="tweet in mentionTweets track by $index">
+      <a class="list-group-item" href="">
+        <p class="list-group-item-text">{{tweet.twitter_account}} - {{tweet.mentions}}</p>
+      </a>
+    </li>
+  </ul>
+</div>

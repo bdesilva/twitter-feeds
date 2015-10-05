@@ -9,7 +9,8 @@ angular.module('twitterFeedsApp', [
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'ngActivityIndicator'
+    'ngActivityIndicator',
+    'gridshore.c3js.chart'
   ])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -17,4 +18,15 @@ angular.module('twitterFeedsApp', [
         templateUrl: 'app/views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/filtered', {
+        templateUrl: 'app/views/filtered.html',
+        controller: 'FilteredCtrl'
+      })
+      .when('/mentions', {
+        templateUrl: 'app/views/mentions.html',
+        controller: 'MentionsCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
   }]);

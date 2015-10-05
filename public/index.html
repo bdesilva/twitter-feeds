@@ -10,6 +10,7 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="bower_components/ngActivityIndicator/css/ngActivityIndicator.min.css" rel="stylesheet"/>
+    <link href="bower_components/c3/c3.css" rel="stylesheet" type="text/css">
   </head>
   <body ng-app="twitterFeedsApp">
     <div class="header">
@@ -31,10 +32,13 @@
 
             <ul class="nav navbar-nav">
               <li class="active">
-                <a href="#/">Home</a>
+                <a href="#/">Feeds</a>
               </li>
               <li>
-                <a ng-href="#/">Admin (Coming soon)</a>
+                <a ng-href="#/filtered">Filtered Tweets</a>
+              </li>
+              <li>
+                <a ng-href="#/mentions">Mentioned Tweets</a>
               </li>
             </ul>
           </div>
@@ -67,7 +71,12 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/ngActivityIndicator/ngActivityIndicator.min.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <script src="bower_components/c3/c3.min.js"></script>
+    <script src="bower_components/c3-angular/c3-angular.min.js"></script>
     <script src="app/scripts/app.js"></script>
     <script src="app/scripts/controllers/main.js"></script>
+    <script src="app/scripts/controllers/filtered.js"></script>
+    <script src="app/scripts/controllers/mentions.js"></script>
   </body>
 </html>
