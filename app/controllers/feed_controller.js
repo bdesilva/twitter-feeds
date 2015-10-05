@@ -12,10 +12,8 @@ var getFeeds = function(req, res, validator, feeds) {
       if (error) {
         console.error(error)
       };
-      var tweets = feeds.formatFeeds(JSON.parse(data));
-      var groups = feeds.filterTweetsByAccount(tweets);
-      var mentions = feeds.foreignUserCount(tweets);
-      res.json(mentions);
+
+      res.json(feeds(JSON.parse(data)));
     });
 };
 

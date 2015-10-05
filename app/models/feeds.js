@@ -19,7 +19,26 @@ function distinguishMentions(tweets, Key) {
   return counter;
 };
 
-exports.formatFeeds = function(tweets) {
+var FilterTweetsByAccount = function(tweets) {
+  return _.countBy(tweets, function(tweet) {
+    return tweet.twitter_account;
+  });
+};
+
+var ForeignUserCount = function(tweets) {
+  return result = _.chain(tweets)
+    .groupBy('twitter_account')
+    .map(function(value, key) {
+      return {
+        twitter_account: key,
+        mentions: distinguishMentions(_.pluck(value, 'tweet'), key)
+      }
+    })
+    .value();
+};
+
+var FormatFeeds = function(tweets) {
+  //console.log('tweets: ' + JSON.stringify(tweets));
   var formattedTweets = [];
 
   _.each(tweets, function(tweet) {
@@ -45,23 +64,13 @@ exports.formatFeeds = function(tweets) {
     return val.tweeted_on = moment(new Date(val.tweeted_on)).fromNow();
   });
 
-  return formattedTweets;
+  return {
+    feeds: formattedTweets,
+    tweets_by_account: FilterTweetsByAccount(formattedTweets),
+    mentions_by_account: ForeignUserCount(formattedTweets)
+  }
 };
 
-exports.filterTweetsByAccount = function(tweets) {
-  return _.countBy(tweets, function(tweet) {
-    return tweet.twitter_account;
-  });
-};
-
-exports.foreignUserCount = function(tweets) {
-  return result = _.chain(tweets)
-    .groupBy('twitter_account')
-    .map(function(value, key) {
-      return {
-        twitter_account: key,
-        mentions: distinguishMentions(_.pluck(value, 'tweet'), key)
-      }
-    })
-    .value();
+module.exports = function(tweets) {
+  return FormatFeeds(tweets);
 };
