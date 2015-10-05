@@ -10,7 +10,7 @@ var buildOAuthObject = function(config) {
     config.twitter.consumer_key,
     config.twitter.consumer_secret,
     '1.0A',
-    'http://127.0.0.1:3000/sessions/callback',
+    null,
     'HMAC-SHA1'
   );
 
