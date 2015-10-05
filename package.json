@@ -13,8 +13,7 @@
     "oauth": "~0.9.14",
     "underscore": "~1.8.3",
     "q": "~1.4.1",
-    "moment": "~2.10.6",
-    "redis": "~2.1.0"
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "chai": "~3.3.0",

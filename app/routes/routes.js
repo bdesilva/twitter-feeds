@@ -1,6 +1,6 @@
 'use strict;'
 
-module.exports = function(app, config, redis) {
+module.exports = function(app, config) {
   var path = require('path'),
     systemController = require('../controllers/system_controller'),
     feedController = require('../controllers/feed_controller');
@@ -10,7 +10,6 @@ module.exports = function(app, config, redis) {
 
   app.get('/api/feeds', function(req, res) {
     res.locals.config = config;
-    res.locals.redis = redis;
     feedController.init(req, res);
   });
 
