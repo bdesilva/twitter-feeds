@@ -2,6 +2,7 @@
 
 var assert = require('chai').assert,
   sinon = require('sinon'),
+  moment = require('moment'),
   feeds = require('../../app/models/feeds');
 
 var testFeed = {
@@ -267,17 +268,88 @@ describe('Feeds model Tests', function() {
     it('should initialize module', function() {
       assert(feeds);
     });
-    it("should return properly formatted twitter feed", function() {
+  });
+  describe('Feed data', function() {
+    it('should return properly formatted twitter feed', function() {
       var result = feeds(testFeed);
       assert.ok(result);
     });
-    it("should return two feeds from test data", function() {
+    it('should return two feeds from test data', function() {
       var result = feeds(testFeed);
       assert.equal(result.feeds.length, 2);
     });
-    it("should not return three feeds from test data", function() {
+    it('should not return three feeds', function() {
       var result = feeds(testFeed);
       assert.notEqual(result.feeds.length, 3);
+    });
+    it('should return correct accounts from test data', function() {
+      var result = feeds(testFeed);
+      assert.equal(result.feeds[0].twitter_account, 'PayByPhone');
+      assert.equal(result.feeds[1].twitter_account, 'ComNpay');
+    });
+    it('should not return incorrect accounts from fake data', function() {
+      var result = feeds(testFeed);
+      assert.notEqual(result.feeds[0].twitter_account, 'TestCompany');
+      assert.notEqual(result.feeds[1].twitter_account, 'SomeOtherCompany');
+    });
+    it('should return correct relative time from test data', function() {
+      var result = feeds(testFeed);
+      assert.equal(result.feeds[0].tweeted_on_relative, moment(new Date(testFeed.statuses[0].created_at)).fromNow());
+      assert.equal(result.feeds[1].tweeted_on_relative, moment(new Date(testFeed.statuses[1].created_at)).fromNow());
+    });
+    it('should return incorrect relative time from fake data', function() {
+      var result = feeds(testFeed);
+      assert.notEqual(result.feeds[0].tweeted_on_relative, '14 hours ago');
+      assert.notEqual(result.feeds[1].tweeted_on_relative, '4 minutes ago');
+    });
+    it('should return correct date and time from test data', function() {
+      var result = feeds(testFeed);
+      assert.equal(result.feeds[0].tweeted_on, 'October 4th 2015, 8:43:01 am');
+      assert.equal(result.feeds[1].tweeted_on, 'October 4th 2015, 1:27:24 am');
+    });
+    it('should properly sorted in ascending order', function() {
+      var result = feeds(testFeed);
+      assert.isAbove(result.feeds[0].twitter_account, result.feeds[1].twitter_account, 'In this test case, the PayByPhone account is before the ComNpay account.');
+    });
+    it('should not be sorted in descending order', function() {
+      var result = feeds(testFeed);
+      assert.isBelow(result.feeds[1].twitter_account, result.feeds[0].twitter_account, 'In this test case, the PayByPhone account is before the ComNpay account.');
+    });
+    it('should have corresponding tweets per account', function() {
+      var result = feeds(testFeed);
+      assert.ok(result.feeds[0].tweet.indexOf('@PayByPhone \nBjr, Pouvez vous m\'indiquer') > -1);
+      assert.ok(result.feeds[1].tweet.indexOf('@ComNpay @pay_by_phone @paylevenFR #Bitcoin') > -1);
+    });
+  });
+  describe('Filter tweets by account', function() {
+    it('should return two accounts with relevant aggregate information from test data', function() {
+      var result = feeds(testFeed);
+      assert.equal(result.tweets_by_account.PayByPhone, 1);
+      assert.equal(result.tweets_by_account.ComNpay, 1);
+    });
+    it('should not return two accounts with relevant aggregate information from test data', function() {
+      var result = feeds(testFeed);
+      assert.notEqual(result.tweets_by_account.PayByPhone, 3);
+      assert.notEqual(result.tweets_by_account.ComNpay, 5);
+    });
+    it('should not return an invalid account', function() {
+      var result = feeds(testFeed);
+      assert.isUndefined(result.tweets_by_account.SomeOtherCompany, 3);
+    });
+  });
+  describe('Filter tweets by account', function() {
+    it('should return two accounts from test data', function() {
+      var result = feeds(testFeed);
+      assert.equal(result.mentions_by_account.length, 2);
+    });
+    it('should not return three accounts from test data', function() {
+      var result = feeds(testFeed);
+      assert.notEqual(result.mentions_by_account.length, 3);
+    });
+    it('should return appropriate aggregate data from selected account', function() {
+      var result = feeds(testFeed);
+      assert.equal(result.mentions_by_account[1].twitter_account, 'ComNpay');
+      assert.equal(result.mentions_by_account[1].mentions, 3);
     });
   });
 });

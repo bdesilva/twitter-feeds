@@ -4,8 +4,8 @@ var _ = require('underscore');
 var moment = require('moment');
 
 function sortByMilliseconds(tw_a, tw_b) {
-  if (tw_a.tweeted_on < tw_b.tweeted_on) return 1;
-  if (tw_a.tweeted_on > tw_b.tweeted_on) return -1;
+  if (tw_a.tweeted_on_relative < tw_b.tweeted_on_relative) return 1;
+  if (tw_a.tweeted_on_relative > tw_b.tweeted_on_relative) return -1;
   return 0;
 };
 
@@ -53,7 +53,8 @@ var FormatFeeds = function(tweets) {
         twitter_id: tw.entities.user_mentions[0].id,
         twitter_account: tw.entities.user_mentions[0].screen_name,
         tweet: tw.text,
-        tweeted_on: moment(new Date(tw.created_at)).valueOf()
+        tweeted_on: moment(new Date(tw.created_at)).format('MMMM Do YYYY, h:mm:ss a'),
+        tweeted_on_relative: moment(new Date(tw.created_at)).valueOf()
       });
     });
   });
@@ -61,7 +62,7 @@ var FormatFeeds = function(tweets) {
   formattedTweets.sort(sortByMilliseconds);
 
   _.mapObject(formattedTweets, function(val, key) {
-    return val.tweeted_on = moment(new Date(val.tweeted_on)).fromNow();
+    return val.tweeted_on_relative = moment(new Date(val.tweeted_on_relative)).fromNow();
   });
 
   return {
