@@ -5,6 +5,7 @@ A UI that collect and displays twitter feeds while performing simple aggregation
 1. Install node
 2. Install gulp to run tests
   * `$ npm install --global gulp`
+3. Run `gulp test` to launch tests
 
 ###### Steps to run application:
 1. After git cloning, run npm install on the root folder of the application and bower install on the public folder of the application.
