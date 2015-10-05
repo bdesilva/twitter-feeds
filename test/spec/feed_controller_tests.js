@@ -4,7 +4,7 @@ var assert = require('chai').assert,
   sinon = require('sinon'),
   feedController = require('../../app/controllers/feed_controller'),
   feeds = require('../../app/models/feeds'),
-  validator = require('../../app/models/validation');
+  oauthBuilder = require('../../app/models/oauth_builder');
 
 describe('Feed Controller Tests', function() {
   describe('Init function', function() {
@@ -12,6 +12,7 @@ describe('Feed Controller Tests', function() {
       assert(feedController);
       assert(feedController.init);
     });
+    //TODO: Investigate better way to stub out oauth get request
     it.skip('should respond successfully when called', function(done) {
       var req, res, localSpy;
 
@@ -28,7 +29,7 @@ describe('Feed Controller Tests', function() {
       };
 
       sinon.createStubInstance(feeds);
-      localSpy = sinon.spy(validator, 'validate');
+      localSpy = sinon.spy(oauthBuilder, 'validate');
 
       feedController.init(req, res);
       assert.equal(localSpy.calledOnce, true);

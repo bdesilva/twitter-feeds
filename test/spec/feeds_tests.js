@@ -1,7 +1,6 @@
 'use strict;'
 
 var assert = require('chai').assert,
-  sinon = require('sinon'),
   moment = require('moment'),
   feeds = require('../../app/models/feeds');
 
@@ -337,7 +336,7 @@ describe('Feeds model Tests', function() {
       assert.isUndefined(result.tweets_by_account.SomeOtherCompany, 3);
     });
   });
-  describe('Filter tweets by account', function() {
+  describe('Mentioned per account', function() {
     it('should return two accounts from test data', function() {
       var result = feeds(testFeed);
       assert.equal(result.mentions_by_account.length, 2);

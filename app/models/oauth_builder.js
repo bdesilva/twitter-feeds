@@ -17,6 +17,6 @@ var buildOAuthObject = function(config) {
   return oauth;
 };
 
-exports.validate = function(config) {
+exports.build = function(config) {
   return buildOAuthObject(config);
 };
