@@ -1,0 +1,43 @@
+body {
+  background-color: darkslateblue !important;
+  padding: 0;
+}
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+.well {
+  border: black !important;
+  border-style: solid !important;
+  border-radius: 30px !important;
+  border-width: 2.5px !important;
+}
+.panel-body {
+  background-color: lightsteelblue !important;
+  padding-bottom: 0px !important;
+}
+.work-type-header {
+  padding-bottom: 10px;
+}
+
+.errors {
+  font-size:smaller;
+  color:red;
+}
+
+.footer-logo {
+  color: lightgrey;
+}
+
+/* Responsive: Mobile, Portrait tablets and up */
+
+@media only screen and (max-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+  .form-horizontal {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}

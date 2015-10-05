@@ -7,11 +7,14 @@ var env = process.env.NODE_ENV || 'development',
   redis = require('./config/redis_config')(config),
   app = express(config, redis);
 
+var path = require('path');
+
 //Redis startup
 redis.on('connect', function() {
-    console.log('Redis client connected on ' + config.redis.host + ':' + config.redis.port);
+  console.log('Redis client connected on ' + config.redis.host + ':' + config.redis.port);
 });
 
 // Web server startup
 app.listen(config.web.port);
+
 console.log("Twitter Feeds client listening on localhost: " + config.web.port);

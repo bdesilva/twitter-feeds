@@ -1,14 +1,20 @@
 'use strict;'
 
 module.exports = function(app, config, redis) {
-    var systemController = require('../controllers/system_controller'),
+  var path = require('path'),
+    systemController = require('../controllers/system_controller'),
     feedController = require('../controllers/feed_controller');
 
-    //Routes
-    app.get('/', systemController.init);
-    app.get('/feeds', function(req, res) {
-      res.locals.config = config;
-      res.locals.redis = redis;
-      feedController.init(req, res);
-    });
+  //Routes
+  app.get('/api/status', systemController.init);
+
+  app.get('/api/feeds', function(req, res) {
+    res.locals.config = config;
+    res.locals.redis = redis;
+    feedController.init(req, res);
+  });
+
+  app.get('/*', function(req, res) {
+    res.sendfile(path.resolve('public/index.html'));
+  });
 };

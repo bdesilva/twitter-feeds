@@ -1,7 +1,7 @@
 'use strict;'
 
 var serviceCheck = function(req, res) {
-  res.send('Howdy World');
+  res.json({status: 'Service functioning'});
 };
 
 exports.init = function(req, res) {

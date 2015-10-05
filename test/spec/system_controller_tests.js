@@ -14,7 +14,7 @@ describe('System Controller Tests', function() {
         var req,res,spy;
 
         req = res = {};
-        spy = res.send = sinon.spy();
+        spy = res.json = sinon.spy();
 
         systemController.init(req, res);
         assert.equal(spy.calledOnce, true);

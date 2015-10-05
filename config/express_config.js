@@ -1,6 +1,7 @@
 'use strict;'
 
-var express = require('express'),
+var path = require('path'),
+  express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override');
@@ -10,7 +11,7 @@ module.exports = function(config, redis) {
   //Server config.
   var app = express();
 
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static('public'));
   app.use(morgan('dev')); // log every request to the console
   app.use(bodyParser.urlencoded({
     'extended': 'true'

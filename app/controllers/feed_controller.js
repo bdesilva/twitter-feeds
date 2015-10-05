@@ -1,6 +1,6 @@
 'use strict;'
 
-var getFeeds = function(req, res, validator, feeds) {
+var getFeeds = function(req, res, oauthBuilder, feeds) {
   var oauth = oauthBuilder.build(res.locals.config);
 
   //TODO: Change two weeks entry to be dynamic
@@ -20,5 +20,5 @@ var getFeeds = function(req, res, validator, feeds) {
 exports.init = function(req, res) {
   var oauthBuilder = require('../models/oauth_builder');
   var feeds = require('../models/feeds');
-  getFeeds(req, res, validator, feeds);
+  getFeeds(req, res, oauthBuilder, feeds);
 };
