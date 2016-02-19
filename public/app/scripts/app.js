@@ -12,7 +12,7 @@ angular.module('twitterFeedsApp', [
     'ngActivityIndicator',
     'gridshore.c3js.chart'
   ])
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'app/views/main.html',
@@ -29,4 +29,6 @@ angular.module('twitterFeedsApp', [
       .otherwise({
         redirectTo: '/'
       });
+
+      $locationProvider.html5Mode(true);
   }]);
