@@ -10,7 +10,7 @@ module.exports = function(app, config) {
 
   app.get('/api/feeds', function(req, res) {
     res.locals.config = config;
-    feedController.init(req, res);
+    feedController.feed(req, res);
   });
 
   app.get('/*', function(req, res) {

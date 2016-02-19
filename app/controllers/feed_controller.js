@@ -20,10 +20,11 @@ var getOauth = function (config, oauthBuilder, Q) {
     return deferred.promise;
 };
 
-exports.init = function(req, res) {
+exports.feed = function(req, res) {
   var Q = require('q');
-  var oauthBuilder = require('../models/oauth_builder');
   var feeds = require('../models/feeds');
+
+  var oauthBuilder = require('../models/oauth_builder');
 
   getOauth(res.locals.config, oauthBuilder, Q)
   .then(function (data) {
